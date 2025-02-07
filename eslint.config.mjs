@@ -2,6 +2,7 @@
 import { FlatCompat } from '@eslint/eslintrc';
 import prettier from 'eslint-plugin-prettier';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import boundaries from 'eslint-plugin-boundaries'
 import { dirname } from 'path';
 import tseslint from 'typescript-eslint';
 import { fileURLToPath } from 'url';
@@ -18,9 +19,52 @@ const eslintConfig = [
     plugins: {
       prettier,
       tseslint,
+      boundaries,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
+      'boundaries/element-types': [
+        'error',
+        {
+          'default': 'allow',
+          'rules': [
+            {
+              'from': 'shared',
+              'disallow': [
+                'app',
+                'widgets',
+                'features',
+                'entities'
+              ],
+              'message': 'import in shared scope from app, widgets, features, entities is forbidden'
+            },
+            {
+              'from': 'entities',
+              'disallow': [
+                'app',
+                'widgets',
+                'features',
+              ],
+              'message': 'import in entities scope from app, widgets, features is forbidden'
+            },
+            {
+              'from': 'features',
+              'disallow': [
+                'app',
+                'widgets',
+              ],
+              'message': 'import in features scope from app, widgets is forbidden'
+            },
+            {
+              'from': 'widgets',
+              'disallow': [
+                'app',
+              ],
+              'message': 'import in widgets scope from app is forbidden'
+            },
+          ]
+        }
+      ],
       'simple-import-sort/imports': [
         'warn',
         {
@@ -121,6 +165,30 @@ const eslintConfig = [
         },
       ],
     },
+    settings: {
+      'boundaries/elements': [
+        {
+          'type': 'app',
+          'pattern': 'src/app/**'
+        },
+        {
+          'type': 'widgets',
+          'pattern': 'src/widgets/**'
+        },
+        {
+          'type': 'features',
+          'pattern': 'src/features/**'
+        },
+        {
+          'type': 'entities',
+          'pattern': 'src/entities/**'
+        },
+        {
+          'type': 'shared',
+          'pattern': 'src/shared/**'
+        },
+      ],
+    }
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
 ];

@@ -1,3 +1,4 @@
+import { cn } from '@shared/lib';
 import type { Metadata } from 'next';
 import { Geist_Mono } from 'next/font/google';
 
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${geistMono.variable} antialiased`}>{children}</body>
+      <body className={cn(geistMono.variable, 'antialiased', 'dark')}>
+        {children}
+      </body>
     </html>
   );
 }
