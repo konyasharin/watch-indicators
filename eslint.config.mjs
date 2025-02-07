@@ -15,6 +15,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     plugins: {
       prettier,
@@ -157,6 +158,7 @@ const eslintConfig = [
           format: ['camelCase'],
         },
       ],
+      'react-hooks/exhaustive-deps': 'off',
       'lines-between-class-members': ['error', 'always'],
       'prettier/prettier': [
         'warn',
@@ -190,7 +192,6 @@ const eslintConfig = [
       ],
     }
   },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
 ];
 
 export default eslintConfig;

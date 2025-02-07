@@ -47,6 +47,16 @@
     --destructive-foreground: 210 40% 98%;
     --ring: 216 34% 17%;
   }
+
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3, h4, h5, h6, p {
+    @apply text-base
+  }
 }
 
 @layer base {

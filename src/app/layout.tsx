@@ -1,5 +1,6 @@
 import { cn } from '@shared/lib';
-import type { Metadata } from 'next';
+import { AppShell, Header } from '@widgets/layout';
+import type { Metadata, Viewport } from 'next';
 import { Geist_Mono } from 'next/font/google';
 
 import './globals.css';
@@ -14,6 +15,11 @@ export const metadata: Metadata = {
   description: 'Приложение для отслеживания индикаторов',
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={cn(geistMono.variable, 'antialiased', 'dark')}>
-        {children}
+        <AppShell config={{ header: { height: 80 } }} header={<Header />}>
+          {children}
+        </AppShell>
       </body>
     </html>
   );
